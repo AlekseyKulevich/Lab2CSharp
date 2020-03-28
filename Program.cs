@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
 
-namespace lab2_lesha
+namespace Lab2
 {
     class Program
     {
@@ -48,29 +48,29 @@ namespace lab2_lesha
 
         public static void DateTask()
         {
-            OutPut("G");
-            OutPut("F");
-        }
-        public static void OutPut(string c)
-        {
-            int[] Numbers = new int[10];
-            DateTime Time = DateTime.Now;
-            Console.WriteLine(Time.ToString(c));
-            string TimeTwo = Time.ToString();
-            for (int i = 0; i < 10; i++)
+            DateTime date = new DateTime();
+            date = DateTime.Now;
+            var dateFormats = date.GetDateTimeFormats();
+            foreach (var dateFormat in dateFormats)
             {
-                for (int j = 0; j < TimeTwo.Length; j++)
+                Dictionary<char, int> dict = new Dictionary<char, int>();
+                foreach (char c in dateFormat)
                 {
-                    int digit = (int)(TimeTwo[j]);
-                    if (digit == i + 48)
+                    if (Char.IsDigit(c))
                     {
-                        Numbers[i]++;
+                        if (dict.ContainsKey(c))
+                            dict[c]++;
+                        else
+                            dict[c] = 1;
                     }
-
                 }
-                Console.WriteLine($"\nКоличество {i}: {Numbers[i]}");
+                Console.WriteLine(dateFormat);
+                foreach (var digit in dict)
+                {
+                    Console.WriteLine(digit.Key + " " + digit.Value);
+                }
+                Console.WriteLine("\n\n");
             }
-         
         }
 
         public static void UpperCaseSymbols()
